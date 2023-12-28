@@ -1,6 +1,6 @@
 # Technical challenge for ID Business Intelligence
 
-Prueba técnica para desarrollador Frontend Junior en [ID Business Intelligence](https://as.com)
+Prueba técnica para desarrollador Frontend Junior en [ID Business Intelligence](https://negocios.idbi.pe)
 
 
 ## Estructura de carpetas
