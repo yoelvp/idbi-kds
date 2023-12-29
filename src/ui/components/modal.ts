@@ -35,7 +35,7 @@ export const ModalHeader = styled.header`
 `
 
 export const ModalTitle = styled.h4`
-  color: ${({ theme }) => theme.colors.blue[800]};
+  color: ${({ theme }) => theme.colors['blue-800']};
   font-size: 1.05rem;
 `
 
