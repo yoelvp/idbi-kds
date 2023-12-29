@@ -1,61 +1,50 @@
 import type { FC } from 'react'
 
-import { useState } from 'react'
-
 import { Button, Flex, Header as HeaderStyled, IconText, Link } from '@/ui'
 import { useLocation } from 'react-router-dom'
-import NewOrderModal from '../modals/NewOrderModal'
+import { useDispatch } from 'react-redux'
+import { onOpen } from '@/features/modals/newOrderModalSlice'
+import Clock from './Clock'
 
 const Header: FC = () => {
+  const dispatch = useDispatch()
   const { pathname } = useLocation()
-  const [isOpenOrderModal, setIsOpenOrderModal] = useState(false)
 
   const handleOpenOrderModal = (): void => {
-    setIsOpenOrderModal(!isOpenOrderModal)
+    dispatch(onOpen())
   }
 
   return (
-    <>
-      <HeaderStyled>
-        <Flex as="nav" $alignItems="center" $gap="24">
-          <IconText to="/">KDS IDBi</IconText>
+    <HeaderStyled>
+      <Flex as="nav" $alignItems="center" $gap="24">
+        <IconText to="/">KDS IDBi</IconText>
 
-          <Flex $alignItems="center">
-            <Link
-              to="/"
-              $bg={pathname === '/' ? 'yellow.200' : 'white.50'}
-              $color={pathname === '/' ? 'blue.600' : 'white.50'}
-            >
-              Pedidos
-            </Link>
-            <Link
-              to="/history"
-              $bg={pathname === '/history' ? 'yellow.200' : 'white.50'}
-              $color={pathname === '/history' ? 'blue.600' : 'white.50'}
-            >
-              Historial
-            </Link>
-          </Flex>
+        <Flex $alignItems="center">
+          <Link
+            to="/"
+            $bg={pathname === '/' ? 'yellow-200' : 'transparent'}
+            $color={pathname === '/' ? 'blue-600' : 'white'}
+          >
+            Pedidos
+          </Link>
+          <Link
+            to="/history"
+            $bg={pathname === '/history' ? 'yellow-200' : 'transparent'}
+            $color={pathname === '/history' ? 'blue-600' : 'white'}
+          >
+            Historial
+          </Link>
         </Flex>
+      </Flex>
 
-        <time
-          dateTime="2023-12-28T12:39:00"
-          style={{ color: 'white', fontSize: '1.25rem', fontWeight: 'bold' }}
-        >
-          {new Date().getHours().toString()}:
-          {new Date().getMinutes().toString()}
-        </time>
+      <Clock />
 
-        <Flex>
-          <Button $color="blue.600" onClick={handleOpenOrderModal}>
-            Nuevo pedido
-          </Button>
-          <Button $color="blue.600">Cambiar tema</Button>
-        </Flex>
-      </HeaderStyled>
-
-      {isOpenOrderModal && <NewOrderModal />}
-    </>
+      <Flex>
+        <Button $color="blue-600" $bg='yellow-200' onClick={handleOpenOrderModal}>
+          Nuevo pedido
+        </Button>
+      </Flex>
+    </HeaderStyled>
   )
 }
 
