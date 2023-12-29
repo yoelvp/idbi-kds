@@ -2,11 +2,12 @@ import type { Color } from '@/ui/types/Color'
 
 import { colors } from '@/ui/theme/colors'
 
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const Button = styled.button<{
   $color?: Color
   $bg?: Color
+  $marginTop?: string
 }>`
   padding: 8px 16px;
   border: none;
@@ -14,9 +15,18 @@ export const Button = styled.button<{
   background-color: ${({ $bg }) => colors[$bg ?? 'black']};
   color: ${({ $color }) => colors[$color ?? 'black']};
   cursor: pointer;
+  ${({ $marginTop }) => css`
+    margin-top: ${$marginTop}px;
+  `};
 
   &:hover {
     background-color: ${({ $bg }) => `${colors[$bg ?? 'black']}50`};
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    color: ${({ theme }) => theme.colors.black};
+    cursor: default;
   }
 `
 
