@@ -12,7 +12,6 @@ export const Flex = styled.div<{
   $alignItems?: AlignItems
   $gap?: string
 }>`
-  width: 100%;
   display: flex;
   flex-direction: ${({ $flexDirection }) => $flexDirection ?? 'row'};
   align-items: ${({ $alignItems }) => $alignItems ?? 'start'};

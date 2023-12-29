@@ -9,7 +9,7 @@ export const ModalContainer = styled.div`
   background-color: ${({ theme }) => `${theme.colors.black}54`};
   padding: 2rem;
   display: flex;
-  justify-center: center;
+  justify-content: center;
   align-items: center;
   z-index: 500;
 `

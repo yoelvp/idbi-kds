@@ -7,5 +7,11 @@ export const Header = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: ${({ theme }) => theme.colors.blue[800]};
+  background-color: ${({ theme }) => theme.colors['blue-800']};
+`
+
+export const HeaderClock = styled.time`
+  color: ${({ theme }) => theme.colors.white};
+  font-size: 1.25rem;
+  font-weight: bold;
 `

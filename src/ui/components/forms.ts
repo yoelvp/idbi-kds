@@ -9,7 +9,7 @@ export const Input = styled.input`
   -moz-appearance: textfield;
 
   &:focus {
-    outline: ${({ theme }) => theme.colors.blue[400]} ridge 2px;
-    border-color: ${({ theme }) => theme.colors.blue[600]};
+    outline: ${({ theme }) => theme.colors['blue-400']} ridge 2px;
+    border-color: ${({ theme }) => theme.colors['blue-600']};
   }
 `

@@ -11,30 +11,12 @@ export const Button = styled.button<{
   padding: 8px 16px;
   border: none;
   border-radius: 8px;
-  background-color: ${({ $bg }) => {
-    if ($bg) {
-      const [color, shade] = $bg.split('.')
-      return colors[color]?.[shade]
-    }
-    return colors.yellow[200]
-  }};
-  color: ${({ $color }) => {
-    if ($color) {
-      const [color, shade] = $color.split('.')
-      return colors[color]?.[shade]
-    }
-    return colors.black
-  }};
+  background-color: ${({ $bg }) => colors[$bg ?? 'black']};
+  color: ${({ $color }) => colors[$color ?? 'black']};
   cursor: pointer;
 
   &:hover {
-    background-color: ${({ $bg }) => {
-      if ($bg) {
-        const [color, shade] = $bg.split('.')
-        return colors[color]?.[shade]
-      }
-      return colors.yellow[200]
-    }};
+    background-color: ${({ $bg }) => `${colors[$bg ?? 'black']}50`};
   }
 `
 
@@ -45,20 +27,8 @@ export const ButtonAction = styled.button<{
   padding: 8px 8px;
   border: none;
   border-radius: 8px;
-  background-color: ${({ $bg }) => {
-    if ($bg) {
-      const [color, shade] = $bg.split('.')
-      return colors[color]?.[shade]
-    }
-    return colors.yellow[200]
-  }};
-  color: ${({ $color }) => {
-    if ($color) {
-      const [color, shade] = $color.split('.')
-      return colors[color]?.[shade]
-    }
-    return colors.white
-  }};
+  background-color: ${({ $bg }) => colors[$bg ?? 'black']};
+  color: ${({ $color }) => colors[$color ?? 'black']};
   cursor: pointer;
   display: flex;
   justify-content: center;

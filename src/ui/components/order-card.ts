@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const Card = styled.article`
   border-radius: 8px;
   overflow: hidden;
-  background-color: ${({ theme }) => theme.colors.blue[800]};
+  background-color: ${({ theme }) => theme.colors['blue-800']};
 `
 
 export const CardHeader = styled.header`
@@ -13,7 +13,7 @@ export const CardHeader = styled.header`
   display: flex;
   justify-content: end;
   align-items: center;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.yellow[200]};
+  border-bottom: 1px solid ${({ theme }) => theme.colors['yellow-200']};
 `
 
 export const CardBody = styled.div`
@@ -30,9 +30,9 @@ export const CardTime = styled.time`
   position: absolute;
   left: 0;
   top: 0;
-  background-color: ${({ theme }) => theme.colors.yellow[200]};
-  color: ${({ theme }) => theme.colors.blue[800]};
-  text-size: 18px;
+  background-color: ${({ theme }) => theme.colors['yellow-200']};
+  color: ${({ theme }) => theme.colors['blue-800']};
+  font-size: 18px;
   font-weight: bold;
   display: flex;
   justify-content: center;
@@ -41,8 +41,8 @@ export const CardTime = styled.time`
 
 export const CardButtonClose = styled.button`
   background: none;
-  color: ${({ theme }) => theme.colors.blue[800]};
-  background-color: ${({ theme }) => theme.colors.yellow[200]};
+  color: ${({ theme }) => theme.colors['blue-800']};
+  background-color: ${({ theme }) => theme.colors['yellow-200']};
   border: none;
   border-radius: 8px;
   padding: 4px;
@@ -53,6 +53,6 @@ export const CardButtonClose = styled.button`
   transition: background-color 300ms;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.yellow[300]};
+    background-color: ${({ theme }) => theme.colors['yellow-300']};
   }
 `

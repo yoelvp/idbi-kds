@@ -7,24 +7,12 @@ export const Link = styled(LinkRoute)<{
   $color?: Color
   $bg?: Color
 }>`
-  color: ${({ $color }) => {
-    if ($color) {
-      const [color, shade] = $color.split('.')
-      return colors[color]?.[shade]
-    }
-    return colors.white
-  }};
+  color: ${({ $color }) => colors[$color ?? 'white']};
   text-decoration: none;
   font-size: 16px;
   padding: 4px 12px;
   border-radius: 4px;
-  background-color: ${({ $bg }) => {
-    if ($bg) {
-      const [color, shade] = $bg.split('.')
-      return colors[color]?.[shade]
-    }
-    return 'transparent'
-  }};
+  background-color: ${({ $bg }) => colors[$bg ?? 'blue-600']};
 
   &:hover {
     text-decoration: underline;
