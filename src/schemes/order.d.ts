@@ -9,7 +9,8 @@ type OrderIndex = Record<number, OrderContent>
 
 export interface Order {
   id: number
-  time: string
   date: string
-  orders: Order[]
+  orders: OrderContent[]
+  status: string
+  time: string
 }
