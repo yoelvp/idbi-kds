@@ -10,6 +10,8 @@ import { useDispatch } from 'react-redux'
 import { addNewOrder } from '@/features/orders/orderSlice'
 import { onClose } from '@/features/modals/newOrderModalSlice'
 import SelectTags from '../forms/SelectTags'
+import { currentFormattedDate, getHourAndTime } from '@/utils/time'
+import { OrderStatus } from '@/utils/constants'
 
 interface OrderForm {
   name: string
@@ -48,13 +50,17 @@ const NewOrderModal: FC = () => {
   const addOrder = (): void => {
     const newOrder = {
       id: uuid(),
-      time: '11:32',
-      date: '2023-12-29T11:32:65',
-      status: 'Pedido',
+      time: getHourAndTime(),
+      date: currentFormattedDate(),
+      status: OrderStatus.REGISTERED,
       orders: orderForms
     }
 
     dispatch(addNewOrder(newOrder))
+    setNumOrders(0)
+    setOrderForms([])
+    setDetailsOrder([])
+    dispatch(onClose())
   }
 
   return (
