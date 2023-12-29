@@ -1,7 +1,7 @@
 import type { FC } from 'react'
 
 import { Box, Button, Flex, Header as HeaderStyled, IconText, Link } from '@/ui'
-import { useLocation, useSearchParams } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { onOpen } from '@/features/modals/newOrderModalSlice'
 import Clock from './Clock'
