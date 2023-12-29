@@ -26,6 +26,14 @@ interface Props {
 const OrderCard: FC<Props> = ({ order }) => {
   const dispatch = useDispatch()
 
+  const updateOrderToProcess = ({ order }: { order: Order }): void => {
+    dispatch(changeOrderStatus({ ...order, status: 'En proceso' }))
+  }
+
+  const changeStatusCompletedOrder = ({ order }: { order: Order }): void => {
+    dispatch(changeOrderStatus({ ...order, status: 'finalizado' }))
+  }
+
   return (
     <Card>
       <CardHeader>
@@ -37,28 +45,37 @@ const OrderCard: FC<Props> = ({ order }) => {
       <CardBody>
         <Table>
           <Tbody>
-            <Tr>
-              <Td $bottomLine>
-                <Flex>
-                  <p>Producto</p>
-                </Flex>
-              </Td>
-              <Td $bottomLine>x7</Td>
-            </Tr>
+            {order.orders.map((ord, index) => (
+              <Tr key={index}>
+                <Td $bottomLine={index !== order.orders.length - 1}>
+                  <Flex>
+                    <p>{ord.name}</p>
+                  </Flex>
+                </Td>
+                <Td $bottomLine={index !== order.orders.length - 1}>
+                  x{ord.quantity}
+                </Td>
+              </Tr>
+            ))}
           </Tbody>
         </Table>
       </CardBody>
       <CardFooter>
         <Flex>
-          {order.status}
           <Button
             $bg="green-600"
             $color="white"
-            onClick={() => dispatch(changeOrderStatus(order))}
+            disabled={order.status.toLocaleLowerCase() === 'en proceso' || order.status.toLocaleLowerCase() === 'finalizado'}
+            onClick={() => updateOrderToProcess({ order })}
           >
             Iniciar
           </Button>
-          <Button $bg="red-600" $color="white">
+          <Button
+            $bg="red-600"
+            $color="white"
+            disabled={order.status.toLocaleLowerCase() !== 'en proceso'}
+            onClick={() => changeStatusCompletedOrder({ order })}
+          >
             Finalizar
           </Button>
         </Flex>
