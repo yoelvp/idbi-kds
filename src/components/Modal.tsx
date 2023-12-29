@@ -12,16 +12,17 @@ import { IoMdClose } from 'react-icons/io'
 interface Props {
   children: ReactNode
   title: string
+  onClose: () => void
 }
 
-const Modal: FC<Props> = ({ children, title }) => {
+const Modal: FC<Props> = ({ children, title, onClose }) => {
   return (
     <ModalContainer>
       <ModalStyled>
         <ModalHeader>
           <ModalTitle>{title}</ModalTitle>
 
-          <ButtonAction>
+          <ButtonAction onClick={onClose}>
             <IoMdClose size="18" />
           </ButtonAction>
         </ModalHeader>

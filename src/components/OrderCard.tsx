@@ -1,4 +1,6 @@
 import type { FC } from 'react'
+import type { Order } from '@/schemes/order'
+
 import {
   Button,
   Card,
@@ -14,12 +16,16 @@ import {
   Tr
 } from '@/ui'
 import { IoMdClose } from 'react-icons/io'
+import { useDispatch } from 'react-redux'
+import { changeOrderStatus } from '@/features/orders/orderSlice'
 
 interface Props {
-  order: any
+  order: Order
 }
 
 const OrderCard: FC<Props> = ({ order }) => {
+  const dispatch = useDispatch()
+
   return (
     <Card>
       <CardHeader>
@@ -34,26 +40,27 @@ const OrderCard: FC<Props> = ({ order }) => {
             <Tr>
               <Td $bottomLine>
                 <Flex>
-                  <p>Fried Chicken</p>
+                  <p>Producto</p>
                 </Flex>
               </Td>
-              <Td $bottomLine>x6</Td>
-            </Tr>
-            <Tr>
-              <Td $bottomLine>Vanilla Cake</Td>
               <Td $bottomLine>x7</Td>
-            </Tr>
-            <Tr>
-              <Td>Matcha Latte</Td>
-              <Td>x3</Td>
             </Tr>
           </Tbody>
         </Table>
       </CardBody>
       <CardFooter>
         <Flex>
-          <Button $bg="green.600">Finalizar</Button>
-          <Button>Iniciar</Button>
+          {order.status}
+          <Button
+            $bg="green-600"
+            $color="white"
+            onClick={() => dispatch(changeOrderStatus(order))}
+          >
+            Iniciar
+          </Button>
+          <Button $bg="red-600" $color="white">
+            Finalizar
+          </Button>
         </Flex>
       </CardFooter>
     </Card>
