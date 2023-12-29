@@ -2,6 +2,7 @@ import type { FC } from 'react'
 import type { Order } from '@/schemes/order'
 
 import {
+  Box,
   Button,
   Card,
   CardBody,
@@ -16,24 +17,19 @@ import {
   Tr
 } from '@/ui'
 import { IoMdClose } from 'react-icons/io'
-import { useDispatch } from 'react-redux'
-import { changeOrderStatus } from '@/features/orders/orderSlice'
+import { OrderStatus } from '@/utils/constants'
 
 interface Props {
   order: Order
+  updateOrderToProcess?: ({ order }: { order: Order }) => void
+  changeStatusCompletedOrder?: ({ order }: { order: Order }) => void
 }
 
-const OrderCard: FC<Props> = ({ order }) => {
-  const dispatch = useDispatch()
-
-  const updateOrderToProcess = ({ order }: { order: Order }): void => {
-    dispatch(changeOrderStatus({ ...order, status: 'En proceso' }))
-  }
-
-  const changeStatusCompletedOrder = ({ order }: { order: Order }): void => {
-    dispatch(changeOrderStatus({ ...order, status: 'finalizado' }))
-  }
-
+const OrderCard: FC<Props> = ({
+  order,
+  updateOrderToProcess,
+  changeStatusCompletedOrder
+}) => {
   return (
     <Card>
       <CardHeader>
@@ -60,25 +56,38 @@ const OrderCard: FC<Props> = ({ order }) => {
           </Tbody>
         </Table>
       </CardBody>
+
       <CardFooter>
-        <Flex>
-          <Button
-            $bg="green-600"
-            $color="white"
-            disabled={order.status.toLocaleLowerCase() === 'en proceso' || order.status.toLocaleLowerCase() === 'finalizado'}
-            onClick={() => updateOrderToProcess({ order })}
-          >
-            Iniciar
-          </Button>
-          <Button
-            $bg="red-600"
-            $color="white"
-            disabled={order.status.toLocaleLowerCase() !== 'en proceso'}
-            onClick={() => changeStatusCompletedOrder({ order })}
-          >
-            Finalizar
-          </Button>
-        </Flex>
+        {order.status === OrderStatus.FINALIZED && (
+          <Box $bg="green-500" $rounded="4">
+            Pedido entregado
+          </Box>
+        )}
+
+        {order.status !== OrderStatus.FINALIZED && (
+          <Flex>
+            <Button
+              $bg="green-600"
+              $color="white"
+              disabled={
+                order.status.toLowerCase() === OrderStatus.IN_PROGRESS.toLowerCase()
+              }
+              onClick={() => updateOrderToProcess?.({ order })}
+            >
+              Iniciar
+            </Button>
+            <Button
+              $bg="red-600"
+              $color="white"
+              disabled={
+                order.status.toLowerCase() !== OrderStatus.IN_PROGRESS.toLowerCase()
+              }
+              onClick={() => changeStatusCompletedOrder?.({ order })}
+            >
+              Finalizar
+            </Button>
+          </Flex>
+        )}
       </CardFooter>
     </Card>
   )
