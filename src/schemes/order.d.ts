@@ -8,7 +8,7 @@ interface OrderContent {
 type OrderIndex = Record<number, OrderContent>
 
 export interface Order {
-  id: number
+  id: string
   date: string
   orders: OrderContent[]
   status: string
