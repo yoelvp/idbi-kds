@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import orderSlice from '@/features/orders/orderSlice'
+import newOrderModalSlice from '@/features/modals/newOrderModalSlice'
 
 export const store = configureStore({
   reducer: {
-    orders: orderSlice
+    orders: orderSlice,
+    orderModal: newOrderModalSlice
   }
 })
 
