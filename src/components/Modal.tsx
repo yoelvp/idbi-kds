@@ -22,7 +22,7 @@ const Modal: FC<Props> = ({ children, title, onClose }) => {
         <ModalHeader>
           <ModalTitle>{title}</ModalTitle>
 
-          <ButtonAction onClick={onClose}>
+          <ButtonAction $bg='yellow-300' $color='white' onClick={onClose}>
             <IoMdClose size="18" />
           </ButtonAction>
         </ModalHeader>

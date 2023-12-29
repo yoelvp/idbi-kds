@@ -17,7 +17,7 @@ export const ModalContainer = styled.div`
 export const Modal = styled.section`
   background-color: ${({ theme }) => theme.colors.white};
   width: 60%;
-  height: 80%;
+  height: auto;
   border-radius: 8px;
   overflow: hidden;
   margin: auto;

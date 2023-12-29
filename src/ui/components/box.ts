@@ -1,9 +1,33 @@
 import type { AlignItems, JustifyContent } from '@/ui/types/flex'
+import type { Color } from '@/ui/types/Color'
 
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import { colors } from '@/ui/theme/colors'
 
-export const Box = styled.section`
+export const Box = styled.section<{
+  $display?: string
+  $justifyContent?: string
+  $AlignItems?: string
+  $gap?: string
+  $color?: Color
+  $bg?: Color
+}>`
+  width: 100%;
   padding: 4px;
+  ${({ $display }) => css`
+    display: ${$display};
+  `}
+  ${({ $justifyContent }) => css`
+    justify-content: ${$justifyContent};
+  `}
+  ${({ $AlignItems }) => css`
+    align-items: ${$AlignItems};
+  `}
+  ${({ $gap }) => css`
+    gap: ${$gap}px;
+  `}
+  color: ${({ $color }) => colors[$color ?? 'white']};
+  background-color: ${({ $bg }) => colors[$bg ?? 'blue-600']};
 `
 
 export const Flex = styled.div<{
