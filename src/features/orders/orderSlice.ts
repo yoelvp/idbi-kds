@@ -18,7 +18,14 @@ export const orderSlice = createSlice({
   initialState,
   reducers: {
     initialize: (state, action) => {
-      state.orders = action.payload
+      const orders: Record<string, Order> = action.payload
+
+      const ordersFormated = Object.keys(orders).map(orderId => ({
+        ...orders[orderId],
+        id: orderId
+      }))
+
+      state.orders = ordersFormated
     },
     addNewOrder: (state, action) => {
       const order = action.payload as Order
@@ -34,8 +41,22 @@ export const orderSlice = createSlice({
       const orderId = updatedOrder.id
 
       state.orders = state.orders.map((order) =>
-        order.id === orderId ? { ...order, status: 'En proceso' } : order
+        order.id === orderId ? updatedOrder : order
       )
+
+      const orderRef = ref(database, `/orders/${orderId}`)
+      update(orderRef, updatedOrder)
+    },
+    finalizeOrder: (state, action) => {
+      const updatedOrder = action.payload as Order
+      const orderId = updatedOrder.id
+
+      state.orders = state.orders.map((order) =>
+        order.id === orderId ? updatedOrder : order
+      )
+
+      const orderRef = ref(database, `/orders/${orderId}`)
+      update(orderRef, updatedOrder)
     }
   }
 })
