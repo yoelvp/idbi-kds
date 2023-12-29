@@ -11,6 +11,7 @@ export const Box = styled.section<{
   $gap?: string
   $color?: Color
   $bg?: Color
+  $rounded?: string
 }>`
   width: 100%;
   padding: 4px;
@@ -26,8 +27,11 @@ export const Box = styled.section<{
   ${({ $gap }) => css`
     gap: ${$gap}px;
   `}
+  ${({ $rounded }) => css`
+    border-radius: ${$rounded}px;
+  `}
   color: ${({ $color }) => colors[$color ?? 'white']};
-  background-color: ${({ $bg }) => colors[$bg ?? 'blue-600']};
+  background-color: ${({ $bg }) => colors[$bg ?? 'transparent']};
 `
 
 export const Flex = styled.div<{
