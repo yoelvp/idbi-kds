@@ -36,3 +36,5 @@ export {
   SelectTagsInput
 } from '@/ui/components/forms'
 export { Grid } from '@/ui/components/grid'
+export { List, ListItem } from '@/ui/components/list'
+export { Text } from '@/ui/components/text'

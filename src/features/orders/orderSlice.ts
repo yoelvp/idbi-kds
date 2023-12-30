@@ -1,16 +1,19 @@
 import type { Order } from '@/schemes/order'
+import type { OrderStatus } from '@/utils/constants'
 
 import { createSlice } from '@reduxjs/toolkit'
 import { ReduxSliceNames } from '@/utils/constants'
-import { push, ref, update } from 'firebase/database'
+import { ref, update } from 'firebase/database'
 import { database } from '@/lib/firebase'
 
 interface InitialState {
   orders: Order[]
+  filter: keyof typeof OrderStatus
 }
 
 const initialState: InitialState = {
-  orders: []
+  orders: [],
+  filter: 'ALL'
 }
 
 export const orderSlice = createSlice({
@@ -20,7 +23,7 @@ export const orderSlice = createSlice({
     initialize: (state, action) => {
       const orders: Record<string, Order> = action.payload
 
-      const ordersFormated = Object.keys(orders).map(orderId => ({
+      const ordersFormated = Object.keys(orders).map((orderId) => ({
         ...orders[orderId],
         id: orderId
       }))
@@ -30,9 +33,8 @@ export const orderSlice = createSlice({
     addNewOrder: (state, action) => {
       const order = action.payload as Order
 
-      const newOrderKey = push(ref(database, 'orders')).key
       const updates: Record<string, Order> = {}
-      updates[`/orders/${newOrderKey}`] = order
+      updates[`/orders/${order.id}`] = order
       update(ref(database), updates)
       state.orders.push(order)
     },
@@ -57,9 +59,29 @@ export const orderSlice = createSlice({
 
       const orderRef = ref(database, `/orders/${orderId}`)
       update(orderRef, updatedOrder)
+    },
+    cancelOrder: (state, action) => {
+      const updatedOrder = action.payload as Order
+      const orderId = updatedOrder.id
+
+      state.orders = state.orders.map((order) =>
+        order.id === orderId ? updatedOrder : order
+      )
+
+      const orderRef = ref(database, `/orders/${orderId}`)
+      update(orderRef, updatedOrder)
+    },
+    setFilter: (state, action) => {
+      state.filter = action.payload
     }
   }
 })
 
-export const { initialize, addNewOrder, changeOrderStatus } = orderSlice.actions
+export const {
+  initialize,
+  addNewOrder,
+  changeOrderStatus,
+  cancelOrder,
+  setFilter
+} = orderSlice.actions
 export default orderSlice.reducer

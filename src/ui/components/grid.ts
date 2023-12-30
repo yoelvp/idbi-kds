@@ -5,6 +5,7 @@ export const Grid = styled.div<{
 }>`
   display: grid;
   grid-template-columns: repeat(1, 1fr);
+  grid-auto-flow: row dense;
   gap: ${({ $gap }) => ($gap ? `${$gap}px` : '8px')};
 
   @media screen and (min-width: 720px) {

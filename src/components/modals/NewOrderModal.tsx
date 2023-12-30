@@ -9,7 +9,8 @@ import { IoMdAdd } from 'react-icons/io'
 import { useDispatch } from 'react-redux'
 import { addNewOrder } from '@/features/orders/orderSlice'
 import { onClose } from '@/features/modals/newOrderModalSlice'
-import SelectTags from '../forms/SelectTags'
+import { currentFormattedDate, getHourAndTime } from '@/utils/time'
+import { OrderStatus } from '@/utils/constants'
 
 interface OrderForm {
   name: string
@@ -21,7 +22,6 @@ interface OrderForm {
 const NewOrderModal: FC = () => {
   const [numOrders, setNumOrders] = useState(1)
   const [orderForms, setOrderForms] = useState<OrderForm[]>([])
-  const [detailsOrder, setDetailsOrder] = useState<string[]>([])
   const dispatch = useDispatch()
 
   const handleAddOrder = (): void => {
@@ -42,19 +42,23 @@ const NewOrderModal: FC = () => {
       ...updatedForms[index],
       [field]: value
     }
+
     setOrderForms(updatedForms)
   }
 
   const addOrder = (): void => {
     const newOrder = {
       id: uuid(),
-      time: '11:32',
-      date: '2023-12-29T11:32:65',
-      status: 'Pedido',
+      time: getHourAndTime(),
+      date: currentFormattedDate(),
+      status: OrderStatus.REGISTERED,
       orders: orderForms
     }
 
     dispatch(addNewOrder(newOrder))
+    setNumOrders(0)
+    setOrderForms([])
+    dispatch(onClose())
   }
 
   return (
@@ -89,11 +93,11 @@ const NewOrderModal: FC = () => {
                   }
                 />
               </Flex>
-              <SelectTags
-                name="Detalles"
-                placeholder="Escribe los detalles"
-                data={detailsOrder}
-                setData={setDetailsOrder}
+              <Input
+                placeholder="Escribe los detalles (separado por `,`)"
+                onChange={(e) =>
+                  handleFormChange(index, 'details', e.target.value)
+                }
               />
               <Box $display="flex" $justifyContent="end">
                 {index === numOrders - 1 && (
