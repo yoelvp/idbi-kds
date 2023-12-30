@@ -4,7 +4,9 @@ export const ReduxSliceNames = {
 }
 
 export const OrderStatus = {
+  ALL: 'Todos',
   FINALIZED: 'Finalizado',
   REGISTERED: 'Registrado',
-  IN_PROGRESS: 'En proceso'
+  IN_PROGRESS: 'En proceso',
+  CANCELLED: 'Cancelado'
 }
