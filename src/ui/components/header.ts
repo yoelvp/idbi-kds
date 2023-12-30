@@ -8,6 +8,7 @@ export const Header = styled.header`
   justify-content: space-between;
   align-items: center;
   background-color: ${({ theme }) => theme.colors['blue-800']};
+  margin-bottom: 2rem;
 `
 
 export const HeaderClock = styled.time`

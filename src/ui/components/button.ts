@@ -8,6 +8,11 @@ export const Button = styled.button<{
   $color?: Color
   $bg?: Color
   $marginTop?: string
+  $display?: string
+  $justifyContent?: string
+  $AlignItems?: string
+  $gap?: string
+  $rounded?: string
 }>`
   padding: 8px 16px;
   border: none;
@@ -15,12 +20,28 @@ export const Button = styled.button<{
   background-color: ${({ $bg }) => colors[$bg ?? 'black']};
   color: ${({ $color }) => colors[$color ?? 'black']};
   cursor: pointer;
+  white-space: nowrap;
   ${({ $marginTop }) => css`
     margin-top: ${$marginTop}px;
   `};
+  ${({ $display }) => css`
+    display: ${$display};
+  `}
+  ${({ $justifyContent }) => css`
+    justify-content: ${$justifyContent};
+  `}
+  ${({ $AlignItems }) => css`
+    align-items: ${$AlignItems};
+  `}
+  ${({ $gap }) => css`
+    gap: ${$gap}px;
+  `}
+  ${({ $rounded }) => css`
+    border-radius: ${$rounded}px;
+  `}
 
   &:hover {
-    background-color: ${({ $bg }) => `${colors[$bg ?? 'black']}50`};
+    background-color: ${({ $bg }) => `${colors[$bg ?? 'black']}ca`};
   }
 
   &:disabled {
